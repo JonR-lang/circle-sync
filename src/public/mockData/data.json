@@ -1,0 +1,50 @@
+[
+  {
+    "createdAt": "2023-12-28T19:18:23.103Z",
+    "email": "friend1@example.com",
+    "firstName": "Friend1",
+    "friends": [],
+    "impressions": 6272,
+    "lastName": "Lastname1",
+    "location": "Canada",
+    "occupation": "Industrial Chemist",
+    "password": "$2b$10$d8uwIJocsSEnxijPbYMvNOfhQHMOveOPv3eLugwoi5QAIqsQAn4mB",
+    "picturePath": "friend_image1.jpg",
+    "updatedAt": "2023-12-28T19:18:23.103Z",
+    "viewedProfile": 3774,
+    "__v": 0,
+    "_id": "friend_id_1"
+  },
+  {
+    "createdAt": "2023-12-28T19:18:23.103Z",
+    "email": "friend2@example.com",
+    "firstName": "Friend2",
+    "friends": [],
+    "impressions": 6272,
+    "lastName": "Lastname2",
+    "location": "Canada",
+    "occupation": "Industrial Chemist",
+    "password": "$2b$10$d8uwIJocsSEnxijPbYMvNOfhQHMOveOPv3eLugwoi5QAIqsQAn4mB",
+    "picturePath": "friend_image2.jpg",
+    "updatedAt": "2023-12-28T19:18:23.103Z",
+    "viewedProfile": 3774,
+    "__v": 0,
+    "_id": "friend_id_2"
+  },
+  {
+    "createdAt": "2023-12-28T19:18:23.103Z",
+    "email": "friend3@example.com",
+    "firstName": "Friend3",
+    "friends": [],
+    "impressions": 6272,
+    "lastName": "Lastname3",
+    "location": "Canada",
+    "occupation": "Industrial Chemist",
+    "password": "$2b$10$d8uwIJocsSEnxijPbYMvNOfhQHMOveOPv3eLugwoi5QAIqsQAn4mB",
+    "picturePath": "friend_image3.jpg",
+    "updatedAt": "2023-12-28T19:18:23.103Z",
+    "viewedProfile": 3774,
+    "__v": 0,
+    "_id": "friend_id_3"
+  }
+]
