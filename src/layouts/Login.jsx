@@ -9,7 +9,7 @@ const Login = () => {
     <div className='h-full w-full'>
       <div className='bg-slate-50 dark:bg-slate-900 p-3'>
         <h1 className='text-center text-slate-800 dark:text-slate-200 text-3xl font-[700]'>
-          ChatHive
+          CircleSync
         </h1>
       </div>
       <div>

@@ -11,25 +11,21 @@ import {
 } from "react-icons/md";
 import { FaChevronDown } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
-import { setMode, setLogout } from "../state/authSlice";
+import { setMode } from "../state/authSlice";
 import { useNavigate } from "react-router-dom";
 import Tippy from "@tippyjs/react";
 import Tooltip from "./ToolTip";
 const buttonStyle =
   "hover:scale-125 transition ease-in text-slate-800 dark:text-slate-200 text-3xl sm:text-lg";
 
-const Navbar = ({ setShowSearch, showSearch }) => {
+const Navbar = ({ setShowSearch }) => {
   const [isMobileMenuToggled, setIsMobileMenuToggled] = useState(false);
   const dispatch = useDispatch();
   const [isDropDown, setIsDropDown] = useState(false);
   const navigate = useNavigate();
-  const user = useSelector((state) => state.user);
   const mode = useSelector((state) => state.mode);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const handleSearchTerm = (e) => {
-    setSearchTerm(e.target.value);
-  };
   const handleDropDown = () => {
     setIsDropDown(!isDropDown);
   };
@@ -43,7 +39,7 @@ const Navbar = ({ setShowSearch, showSearch }) => {
       className={`bg-slate-50 h-[70px] dark:bg-slate-900 flex justify-between items-center px-6 gap-4`}>
       <div>
         <h1 className='text-slate-800 dark:text-slate-200 text-2xl font-[700] mt-1'>
-          ChatHive
+          CircleSync
         </h1>
       </div>
       <button
