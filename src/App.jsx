@@ -1,7 +1,6 @@
 import { useNavigate, Routes, Route } from "react-router-dom";
 import Home from "./layouts/Home";
 import Login from "./layouts/Login";
-import NotFound from "./layouts/NotFound";
 import { useEffect, useLayoutEffect } from "react";
 import { useSelector } from "react-redux";
 
