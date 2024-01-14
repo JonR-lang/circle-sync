@@ -7,7 +7,6 @@ const Feed = () => {
     <div className='flex flex-col gap-4 sm:flex-row w-full justify-center'>
       <UserWidget />
       <PostWidget />
-
       <div className='flex-1 order-2 sm:order-3'>
         <FriendWidget />
       </div>

@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import { useState } from "react";
 import Navbar from "../components/Navbar";
+import NotFound from "./NotFound";
 import Profile from "./Profile";
 import ErrorComponent from "../components/ErrorComponent";
 import { ErrorBoundary } from "react-error-boundary";
@@ -26,8 +27,9 @@ const Home = () => {
           )}
 
           <Routes>
-            <Route path='/*' element={<Feed />} />
             <Route path='/profile/:userId' element={<Profile />} />
+            <Route path='/' element={<Feed />} />
+            <Route path='*' element={<NotFound />} />
           </Routes>
         </div>
       </ErrorBoundary>

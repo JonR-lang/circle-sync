@@ -12,7 +12,7 @@ import {
 import { FaChevronDown } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
 import { setMode } from "../state/authSlice";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Tippy from "@tippyjs/react";
 import Tooltip from "./ToolTip";
 const buttonStyle =
@@ -24,7 +24,6 @@ const Navbar = ({ setShowSearch }) => {
   const [isDropDown, setIsDropDown] = useState(false);
   const navigate = useNavigate();
   const mode = useSelector((state) => state.mode);
-  const [searchTerm, setSearchTerm] = useState("");
 
   const handleDropDown = () => {
     setIsDropDown(!isDropDown);
@@ -38,9 +37,11 @@ const Navbar = ({ setShowSearch }) => {
     <div
       className={`bg-slate-50 h-[70px] dark:bg-slate-900 flex justify-between items-center px-6 gap-4`}>
       <div>
-        <h1 className='text-slate-800 dark:text-slate-200 text-2xl font-[700] mt-1'>
-          CircleSync
-        </h1>
+        <Link to='/'>
+          <h1 className='text-slate-800 dark:text-slate-200 text-2xl font-[700] mt-1'>
+            CircleSync
+          </h1>
+        </Link>
       </div>
       <button
         className='-mr-3 sm:hidden ml-auto'

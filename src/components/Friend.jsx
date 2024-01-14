@@ -86,7 +86,7 @@ const Friend = ({ friend, friends, setFriends, userIdParams }) => {
     <div className='text-slate-900 dark:text-slate-200 flex items-center dark:bg-white/5 bg-white/20 shadow-md gap-3 p-3 rounded-md'>
       {friend?.picturePath ? (
         <img
-          src={`http://localhost:3001/${friend?.picturePath}`}
+          src={friend?.picturePath}
           alt='user-image'
           className='size-16 object-cover rounded-full shrink-0'
         />

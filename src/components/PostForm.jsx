@@ -1,3 +1,6 @@
+import { storage } from "../utils/firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { v4 } from "uuid";
 import { MdOutlineImage, MdDelete } from "react-icons/md";
 import { useDropzone } from "react-dropzone";
 import { useState, useCallback } from "react";
@@ -43,21 +46,35 @@ const PostForm = ({ setIsPostChanged }) => {
     setDescription(e.target.value);
   };
 
-  const formData = new FormData();
-  formData.append("userId", user?._id);
-  formData.append("description", description);
-  formData.append("picture", imageFile);
-  formData.append("picturePath", imageFile?.name ? imageFile?.name : "");
-
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsPosting(true);
+    let imageUrl;
+
     try {
-      setIsPosting(true);
+      if (imageFile) {
+        const imageRef = ref(storage, `images/${imageFile.name + v4()}`);
+        console.log(imageRef);
+        await uploadBytes(imageRef, imageFile);
+        imageUrl = await getDownloadURL(imageRef);
+        console.log(imageUrl);
+      }
+
+      const post = {
+        userId: user?._id,
+        description: description,
+        picturePath: imageUrl ? imageUrl : "",
+      };
+
       const response = await fetch(`${import.meta.env.VITE_BASE_URL}/posts`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
         method: "POST",
         credentials: "include",
-        body: formData,
+        body: JSON.stringify(post),
       });
+
       if (!response.ok) {
         if (response.status === 401) {
           const refreshResponse = await getRefreshToken();

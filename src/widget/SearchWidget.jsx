@@ -63,7 +63,7 @@ const SearchWidget = ({ setShowSearch }) => {
               className='flex items-center gap-3'>
               {user?.picturePath ? (
                 <img
-                  src={`${import.meta.env.VITE_BASE_URL}/${user.picturePath}`}
+                  src={user.picturePath}
                   alt='user-profile-image'
                   className='size-12 shrink-0 rounded-full object-cover'
                 />

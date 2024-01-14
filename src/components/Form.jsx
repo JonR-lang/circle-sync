@@ -1,9 +1,10 @@
 import { useFormik } from "formik";
 import { MdEdit } from "react-icons/md";
 import * as yup from "yup";
+import { storage } from "../utils/firebase";
+import { uploadBytes, ref, getDownloadURL } from "firebase/storage";
+import { v4 } from "uuid";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setLogin } from "../state/authSlice";
 import { useDropzone } from "react-dropzone";
 import { useCallback, useState } from "react";
 
@@ -17,7 +18,7 @@ const registerSchema = yup.object().shape({
   password: yup.string().required("Please fill in a password"),
   location: yup.string().required("Please fill in this field."),
   personalInterests: yup.string().required("Please fill in this filled."),
-  picture: yup.string().required("Please put in a profile picture"),
+  picturePath: yup.string(),
 });
 const loginSchema = yup.object().shape({
   email: yup
@@ -34,7 +35,7 @@ const initialValuesRegister = {
   password: "",
   location: "",
   personalInterests: "",
-  picture: "",
+  picturePath: "",
 };
 
 const initialValuesLogin = {
@@ -43,14 +44,13 @@ const initialValuesLogin = {
 };
 const Form = () => {
   const [pageType, setPageType] = useState("login");
-  const dispatch = useDispatch();
+  const [imageFile, setImageFile] = useState(null);
+  const [isLogging, setIsLogging] = useState(false);
   const navigate = useNavigate();
   const isLogin = pageType === "login";
   const isRegister = pageType === "register";
   const onDrop = useCallback((acceptedFiles) => {
-    acceptedFiles.length
-      ? formik.setFieldValue("picture", acceptedFiles[0])
-      : formik.setFieldValue("picture", "");
+    if (acceptedFiles.length) setImageFile(acceptedFiles[0]);
   }, []);
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
@@ -67,6 +67,7 @@ const Form = () => {
       if (isLogin) {
         const logUser = async () => {
           try {
+            setIsLogging(true);
             const response = await fetch(
               `${import.meta.env.VITE_BASE_URL}/auth/login`,
               {
@@ -82,13 +83,14 @@ const Form = () => {
             if (data.errors) throw new Error(JSON.stringify(data.errors)); //It was stringified so that it can be used by the browser.
 
             localStorage.setItem("user", JSON.stringify(data.user));
-            dispatch(setLogin({ user: data.user }));
             navigate("/", { replace: true });
             console.log(data);
           } catch (err) {
             const errorMessage = JSON.parse(err.message); //Here, it is. You can then parse it so that you can do with it what you want.
             setErrors(errorMessage);
             console.log(errorMessage);
+          } finally {
+            setIsLogging(false);
           }
         };
         logUser();
@@ -96,20 +98,25 @@ const Form = () => {
 
       if (isRegister) {
         const registerUser = async () => {
-          //because you are sending a picture, you use the formData object and then append all the values to the formData, before sending to the server.
-          const formData = new FormData();
-          for (let value in values) {
-            formData.append(value, values[value]);
-          }
-          formData.append("picture", values.picture); //This sends the file itself so that it can be stored on the server.
-          formData.append("picturePath", values.picture.name); //This sends the name of the file, which inturn is the path to the file.
-
           try {
+            setIsLogging(true);
+            if (imageFile) {
+              console.log(imageFile);
+              const imageRef = ref(storage, `images/${imageFile.name + v4()}`);
+              console.log("imageRef: ", imageRef);
+              await uploadBytes(imageRef, imageFile);
+              const downloadUrl = await getDownloadURL(imageRef);
+              values.picturePath = downloadUrl;
+            }
+
             const response = await fetch(
               `${import.meta.env.VITE_BASE_URL}/auth/register`,
               {
+                headers: {
+                  "Content-Type": "application/json",
+                },
                 method: "POST",
-                body: formData,
+                body: JSON.stringify(values),
               }
             );
             const data = await response.json();
@@ -119,6 +126,8 @@ const Form = () => {
             const errorMessage = JSON.parse(err.message);
             setErrors(errorMessage);
             console.log(err.message);
+          } finally {
+            setIsLogging(false);
           }
         };
         registerUser();
@@ -167,7 +176,7 @@ const Form = () => {
             <button
               className='col-span-2 bg-slate-900 text-slate-200 py-3 rounded-md hover:bg-slate-800'
               type='submit'>
-              Login
+              {!isLogging ? "Log in" : "Logging in..."}
             </button>
             <div className='text-xs text-slate-800 dark:text-slate-200'>
               Don't have an accout?
@@ -186,7 +195,7 @@ const Form = () => {
         {isRegister && (
           <div className='grid grid-cols-2 gap-4 p-3'>
             <h1 className='col-span-2 text-xl text-slate-800 dark:text-slate-200 font-bold'>
-              Welcome to ChatHive!
+              Welcome to CircleSync!
             </h1>
             <div>
               <label htmlFor='firstName'>First Name</label>
@@ -294,7 +303,7 @@ const Form = () => {
               {...getRootProps()}
               className='col-span-2 h-40 border-2 border-dashed rounded-md p-8 border-slate-500 flex items-center justify-center'>
               <input {...getInputProps()} />
-              {!formik.values.picture ? (
+              {!imageFile ? (
                 <div>
                   {isDragActive ? (
                     <p>Drop the files here ...</p>
@@ -311,7 +320,7 @@ const Form = () => {
                 </div>
               ) : (
                 <div className='w-full flex justify-between bg-slate-300 dark:bg-slate-900 p-10 text-slate-900 dark:text-slate-200'>
-                  <p>{formik.values.picture.name}</p>
+                  <p>{imageFile.name}</p>
                   <button type='button'>
                     <MdEdit />
                   </button>
@@ -321,7 +330,7 @@ const Form = () => {
             <button
               className='col-span-2 bg-slate-900 text-slate-200 py-3 rounded-md hover:bg-slate-800'
               type='submit'>
-              Sign up
+              {!isLogging ? "Sign up" : "Signing up..."}
             </button>
             <div className='text-xs text-slate-800 dark:text-slate-200'>
               Already a member?

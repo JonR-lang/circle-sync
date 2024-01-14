@@ -20,18 +20,9 @@ const Profile = () => {
         }
       );
       if (!response.ok) {
-        console.log("Response not okay o");
         if (response.status === 401) {
-          console.log(response);
-          const refreshResponse = await fetch(
-            "http://localhost:3001/auth/refresh-token",
-            {
-              method: "POST",
-              credentials: "include",
-            }
-          );
-
-          if (refreshResponse.ok) {
+          const refreshResponse = await getRefreshToken();
+          if (refreshResponse) {
             console.log("RefreshResponse is okay");
             await getUserPosts();
             return;

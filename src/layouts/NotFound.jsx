@@ -6,8 +6,7 @@ const NotFound = () => {
   const navigate = useNavigate();
   return (
     <>
-      <Navbar />
-      <div className='flex flex-col items-center justify-center min-h-[calc(100vh-75px)] text-slate-900 dark:text-slate-200'>
+      <div className='flex flex-col items-center justify-center text-slate-900 dark:text-slate-200'>
         <Missing />
         <p className='text-center text-lg'>
           Lost in the digital ether, seeking truth amidst the bytes.

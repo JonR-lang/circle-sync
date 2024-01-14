@@ -26,9 +26,8 @@ function App() {
   return (
     <div className='bg-slate-200 dark:bg-slate-950 min-h-screen'>
       <Routes>
-        <Route path='/login' element={<Login />} />
-        <Route path='/' element={<Home />} />
-        <Route path='*' element={<NotFound />} />
+        <Route exact path='/login' element={<Login />} />
+        <Route path='*' element={<Home />} />
       </Routes>
     </div>
   );

@@ -178,7 +178,7 @@ const PostComponent = ({ post, setIsPostChanged }) => {
               <figure className='overflow-hidden rounded-lg '>
                 {post.picturePath ? (
                   <img
-                    src={`${import.meta.env.VITE_BASE_URL}/${post.picturePath}`}
+                    src={post.picturePath}
                     alt='post-image'
                     className='size-full object-cover'
                   />
@@ -197,9 +197,7 @@ const PostComponent = ({ post, setIsPostChanged }) => {
                 <Link to={`/profile/${post.userId}`} className='shrink-0'>
                   {post.userPicturePath ? (
                     <img
-                      src={`${import.meta.env.VITE_BASE_URL}/${
-                        post.userPicturePath
-                      }`}
+                      src={post.userPicturePath}
                       alt='profile-image'
                       className='size-12 rounded-full object-cover'
                     />
@@ -311,9 +309,7 @@ const PostComponent = ({ post, setIsPostChanged }) => {
                   <Link to={`/profile/${user.userId}`} className='shrink-0'>
                     {user.picturePath ? (
                       <img
-                        src={`${import.meta.env.VITE_BASE_URL}/${
-                          user.picturePath
-                        }`}
+                        src={user.picturePath}
                         alt='profile-picture'
                         className='size-10 rounded-full shrink-0'
                       />
