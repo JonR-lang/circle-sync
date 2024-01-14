@@ -123,9 +123,7 @@ const PostForm = ({ setIsPostChanged }) => {
               <div className='overflow-hidden rounded-full size-16 shrink-0'>
                 {user?.picturePath ? (
                   <img
-                    src={`${import.meta.env.VITE_BASE_URL}/${
-                      user?.picturePath
-                    }`}
+                    src={user?.picturePath}
                     alt='user-image'
                     className='size-full object-cover'
                   />

@@ -198,7 +198,7 @@ const UserWidget = ({ userId }) => {
       )}
       {user && (
         <div className='flex flex-col order-1 w-full gap-2 text-slate-900 dark:text-slate-200 flex-1'>
-          <div className='p-3 rounded flex items-center justify-between gap-3 dark:bg-white/10 bg-white/20 shadow-md'>
+          <div className='p-3 rounded flex items-center justify-between gap-3 dark:bg-white/5 bg-white/20 shadow-md'>
             <div className='overflow-hidden rounded-full size-16 shrink-0'>
               {user?.picturePath ? (
                 <img
@@ -233,7 +233,7 @@ const UserWidget = ({ userId }) => {
             )}
           </div>
 
-          <div className='p-3 rounded flex flex-col gap-2 bg-white/20 dark:bg-white/10 shadow-md'>
+          <div className='p-3 rounded flex flex-col gap-2 bg-white/20 dark:bg-white/5 shadow-md'>
             <div className='flex gap-4 items-center'>
               <MdLocationOn fontSize={38} />
               <p className='text-sm opacity-80'>{user.location}</p>
@@ -244,7 +244,7 @@ const UserWidget = ({ userId }) => {
             </div>
           </div>
 
-          <div className='p-3 rounded dark:bg-white/10 bg-white/20 shadow-md'>
+          <div className='p-3 rounded dark:bg-white/5 bg-white/20 shadow-md'>
             <div className='flex justify-between items-center'>
               <p className='opacity-80 text-sm'>Profile views</p>
               <span className='font-bold'>{user.viewedProfile}</span>
@@ -254,7 +254,7 @@ const UserWidget = ({ userId }) => {
               <span className='font-bold'>{user.impressions}</span>
             </div>
           </div>
-          <div className='p-3 rounded dark:bg-white/10 bg-white/20 space-y-4 shadow-md'>
+          <div className='p-3 rounded dark:bg-white/5 bg-white/20 space-y-4 shadow-md'>
             <h3 className='text-xl font-bold'>Social Profiles</h3>
             <div className='flex gap-3 items-center'>
               <FaTwitter fontSize={30} />
@@ -316,7 +316,7 @@ const UserWidget = ({ userId }) => {
             </div>
           </div>
           <div
-            className={`p-3 rounded dark:bg-slate-900 bg-slate-200 border border-slate-900 shadow-xl fixed right-5 ${
+            className={`p-3 rounded dark:bg-slate-900 z-10 bg-slate-200 border border-slate-900 shadow-xl fixed right-5 ${
               !!editSocial ? "bottom-5" : "bottom-[-100%] z-10"
             } left-5 transition-[bottom]`}>
             <div className={`${editSocial ? "block" : "hidden"}`}>
